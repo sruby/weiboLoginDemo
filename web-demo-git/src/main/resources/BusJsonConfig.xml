@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="GBK"?>
+<system>
+	<interceptors>
+		<interceptor class="com.thinkive.tbservice.interceptor.LoggingInterceptor" name="logging" description="打印参数日志" />
+		<interceptor class="com.thinkive.tbservice.interceptor.TimerInterceptor" name="timer" description="记录接口执行时间 " />
+		<interceptor class="com.thinkive.tbservice.interceptor.VisitInterceptor" name="limitVisit" description="限制访问用户数" />
+		<interceptor class="com.thinkive.tbservice.interceptor.TicketInterceptor" name="ticket" description="验证码拦截器 " />
+		<interceptor-stack name="defaultStack">
+			<interceptor-ref name="params" />
+			<interceptor-ref name="limitVisit" />
+			<interceptor-ref name="logging" />
+			<interceptor-ref name="timer" />
+		</interceptor-stack>
+		<interceptor-stack name="sendMbStack">
+			<interceptor-ref name="sendMbCode" />
+		</interceptor-stack>
+		<interceptor-stack name="ticketStack">
+			<interceptor-ref name="ticket" />
+		</interceptor-stack>
+		<interceptor-stack name="mbcodeStack">
+			<interceptor-ref name="mbCode" />
+			<!-- <interceptor-ref name="ticket" /> -->
+		</interceptor-stack>
+		<interceptor-stack name="loginOutStack">
+			<interceptor-ref name="loginOut" />
+		</interceptor-stack>
+		<interceptor-stack name="userLoginStack">
+			<interceptor-ref name="rsaDecrypt" />
+			<interceptor-ref name="userLogin" />
+		</interceptor-stack>
+		<interceptor-stack name="managerLoginStack">
+			<interceptor-ref name="managerLogin" />
+		</interceptor-stack>
+		<interceptor-stack name="securityStack">
+			<interceptor-ref name="security" />
+		</interceptor-stack>
+		<interceptor-stack name="rsaStack">
+			<!-- <interceptor-ref name="security" /> -->
+			<interceptor-ref name="rsa" />
+		</interceptor-stack>
+		<interceptor-stack name="rsaDecrypt">
+			<interceptor-ref name="rsaDecrypt" />
+		</interceptor-stack>
+		<interceptor-stack name="managerParams">
+			<interceptor-ref name="managerparam" />
+		</interceptor-stack>
+		<interceptor-stack name="frienderParams">
+			<interceptor-ref name="frienderparam" />
+		</interceptor-stack>
+		<interceptor-stack name="getLoginInfos">
+			<interceptor-ref name="getLoginInfo" />
+		</interceptor-stack>
+		<interceptor-stack name="SsoLoginInfos">
+			<interceptor-ref name="SsoLoginInfo" />
+		</interceptor-stack>
+		<interceptor-stack name="GetStockLists">
+			<interceptor-ref name="getStockList" />
+		</interceptor-stack>
+		<interceptor-stack name="GetUserParams">
+			<interceptor-ref name="userParams" />
+		</interceptor-stack>
+		<default-interceptor-ref name="defaultStack" />
+	</interceptors>
+	<functions>
+		<function description="cloudinvest">
+			<config-type>bus</config-type>
+			<config-addr>conf/sj1/functions/cloudinvest/</config-addr>
+			<config-name>cloudinvest_function.xml</config-name>
+			<bus-config-id>netfundBus</bus-config-id>
+		</function>
+		<function description="capital">
+			<config-type>bus</config-type>
+			<config-addr>conf/sj1/functions/cloudinvest/</config-addr>
+			<config-name>function_capital.xml</config-name>
+			<bus-config-id>netfundBus</bus-config-id>
+		</function>
+		<function>
+			<function-list>
+				407063|408102|408115|408117|408118|408130|408134|408135|408137|408138|408146|408147|408148|408149|408321|408323|408332|408334|408336|408339|408367|408371|408379|408381|408394
+			</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="frienderParams">
+			</interceptor-ref>
+		</function>
+		<function>
+			<function-list>
+				408151|408322|408331|408337|408343|408357|408368|408393
+			</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="GetUserParams"></interceptor-ref>
+		</function>
+		<function>
+			<function-list>408101</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="ticketStack">
+			</interceptor-ref>
+		</function>
+		<function>
+			<function-list>408101|408100|408152|408355|408369|408388|408371|408332|408377
+			</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="userLoginStack">
+			</interceptor-ref>
+		</function>
+		<function>
+			<function-list>408104</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="rsaDecrypt">
+			</interceptor-ref>
+		</function>
+		<!-- 退出登录 -->
+		<function>
+			<function-list>10001</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="loginOutStack">
+			</interceptor-ref>
+		</function>
+		<!-- 获取登录信息 -->
+		<function>
+			<function-list>10002</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="getLoginInfos">
+			</interceptor-ref>
+		</function>
+		<!-- 获取注册短信 -->
+		<function>
+			<function-list>10003</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="sendMbStack">
+			</interceptor-ref>
+		</function>
+		<!-- 获取股票列表 -->
+		<function>
+			<function-list>10004</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="GetStockLists">
+			</interceptor-ref>
+		</function>
+		<function>
+			<function-list>1000000</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="rsaStack">
+			</interceptor-ref>
+		</function>
+		<function>
+			<config-type>workframe</config-type>
+			<config-addr>conf/sj1/functions/</config-addr>
+			<config-name>func_oauth.xml</config-name>
+			<buskey>bus</buskey>
+		</function>
+		<function description="cloudinvest">
+			<config-type>bus</config-type>
+			<config-addr>conf/sj1/functions/cloudinvest/</config-addr>
+			<config-name>stockmatch_function.xml</config-name>
+			<bus-config-id>netfundBus</bus-config-id>
+			<interceptor-ref name="defaultStack">
+				<!-- <filter-function>410219</filter-function> -->
+			</interceptor-ref>	
+		</function>
+		
+		<function>
+			<!--
+				402510	牛人汇更新用户名，头像地址
+				402508	根据用户id查询参赛的数量
+				402509 	查询用户的大赛活动
+				402505	赛事报名
+			 -->
+			<!-- <function-list>402508|402510|402509|402505</function-list> -->
+			<function-list>402505</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="userParamsStack">
+			</interceptor-ref>
+		</function>
+		
+		
+		<!-- 短信验证码拦截 -->
+		<function>
+			<function-list>1000004</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="SendMbCodeStack">
+			</interceptor-ref>
+		</function>
+		
+		<!-- 退出登录 -->
+		<function>
+			<function-list>10001</function-list>
+			<buskey>netfundBus</buskey>
+			<interceptor-ref name="loginOutStack">
+			</interceptor-ref>
+		</function>
+	</functions>
+</system>

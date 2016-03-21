@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="GBK"?>
+<system>
+    <category name="system" description="系统配置">
+    	<item name="machineId" value="po-zhu" descript="机器ID，方便发布时的开发调试" />
+    	<item name="isOracleSequence" value="1" description="使用oracle生成序列" />
+        <item name="configDataImpl" value="com.thinkive.framework.service.SysConfigService" description="系统配置信息数据来源实现类，实现类需要继承ConfigDataSource"/>
+        <item name="filterPwdField" value="password|idno|id_no" description="敏感字段不在日志中输出，多个字段用|分隔"/>
+        <item name="filterLogFuncNo" value="900010|901031|900100|901092|901020" description="指定的功能号不打印日志，多个功能号用|分隔"/>
+        <item name="moduleXMLList" value="workframe-plat.xml|workframe.xml" description="业务功能号配置文件，多个用|分隔"></item>
+        <item name="isDevelop" value="1" description="是否开发环境 0或空:不是 1:是"></item>
+        <item name="publishEncode" value="UTF-8" description="发布模板的页面编码"></item>
+        <item name="execSqlMode" value="bus" description="执行SQL配置文件模式  jdbc、bus 默认是jdbc"></item>
+        <item name="isreve" value="1" description=""></item>
+        <item name="fileSaveAddr" value="D:\mybb\myeclipseProject\FrameworkPlat\WebRoot" description="模板备份文件存放的路径，可以是CMS服务器的任何地址，如e:\upload_file"></item>
+    </category>
+    <category name="limitVisit" description="访问限制数量设置">
+    	<item name="is_use" value="0" description="是否使用  0:不使用 1:使用"/>
+    	<item name="session_user_key" value="@client_id" description="session中存放用户标识的KEY"/>
+    	<item name="idle_max_time" value="1" description="闲置最大时间，单位分钟"/>
+    	<item name="max_user_num" value="1" description="允许最大用户数"/>
+    	<item name="busy_msg" value="当前系统共有$num$个用户正在开户，请您稍作等待" description="超过最大用户数的提示消息"/>
+    	<item name="login_id" value="admin" description="查询登录用户信息的ID"/>
+    	<item name="password" value="888888" description="查询登录用户信息的密码"/>
+    </category>
+    <category name="bus2jsonConfig" description="统一接入相关配置">
+    	<item name="nolog_param_funcno" value="900010" descript="结果不在日志中打印的功能号,多个用|分隔" />
+    	<item name="nolog_result_funcno" value="900010" descript="入参不在日志中打印的功能号,多个用|分隔" />
+    </category>
+    <category name="sj1" description="云投顾">
+    	<item name="ssoAction" value="http://127.0.0.1:9090/servlet/sj1/SsoAction" descript="单点登录重定向" />
+    </category>
+    <category name="market" description="行情相关配置">
+        <item name="isUse" value="1" description="是否启动行情读取服务，0为不使用，1为使用" />
+        <item name="hqserver" value="http://183.57.43.60:8080" description="远程行情服务器访问URL，可以指定多个，用|分隔开" />
+        <item name="waittime" value="3000" description="实时行情更新间隔时间，以毫秒为单位"/>
+        <item name="starttime" value="9:00" description="时间段" />
+        <item name="endtime" value="15:30" description="时间段" />
+    </category>
+    <category name="page" description="页面显示通用设置">
+		<item name="pageRow" value="10" description="分页每页记录数" />
+	</category>
+</system>

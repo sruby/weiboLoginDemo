@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="GBK"?>
+<!--
+   merchant:merid           商户ID
+   merchant:mername         商户名称
+   merchant:md5key          MD5 KEY
+   merchant:certPath        证书路径（相对于src路径）
+   
+   merchant:url             数据提交地址URL 
+   
+   merchant:encryMode       业务数据加密方式　 NONE、RSA、 AES
+   merchant:encryKey        业务数据加密使用的key
+   merchant:signType        签名类型 MD5 / RSA
+   merchant:signKey        　签名使用的key
+   merchant:requestUrl       请求URL地址
+   merchant:requestEncoding  页面请求编码
+   merchant:requestTimeout   请求超时时间，单位豪秒，默认60000
+-->
+<merchant>
+	<merid>cloudinvest</merid>
+	<mername>云投顾</mername>
+	<encryMode>NONE</encryMode>
+	<encryKey></encryKey>
+	<signType>MD5</signType>
+	<signKey>4db7b064f5455b890e1deadc5ef90e6e</signKey>
+	<requestUrl>http://127.0.0.1:8080/servlet/json</requestUrl>
+	<requestEncoding>UTF-8</requestEncoding>
+	<requestTimeout>60000</requestTimeout>
+	<loginUrl>http://192.168.1.56:8002/servlet/sso/SSOAction?function=login</loginUrl>
+	<logoutUrl>http://192.168.1.56:8002/servlet/sso/SSOAction?function=logout</logoutUrl>
+</merchant>

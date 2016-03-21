@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="GBK"?>
+<modules>
+	<function id="1100205" type="2" class="com.thinkive.sj1.common.function.Function1100205" description="检查临时TOKEN"></function>
+	<function id="1100206" type="2" class="com.thinkive.sj1.common.function.Function1100206" description="检查临时TOKEN"></function>
+</modules>
