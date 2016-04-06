@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--defalut指向默认的target-->
+   <project name="Hello World Project" default="info">
+	
+   <property file="build.properties"/>
+
+   <target name="info">
+      <echo>${ant.version},you are at ${sitename}</echo>
+   </target>
+
+</project>

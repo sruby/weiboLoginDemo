@@ -1,0 +1,173 @@
+﻿<project name="dahuaWeb" default="web-war" basedir="."  xmlns:ivy="antlib:fr.jayasoft.ivy.ant" >
+	<property environment="env" /> 
+	<property file="build.properties" />
+	<property name="src.dir" value="${basedir}/src" /> 
+	<property name="src.java.dir" value="${src.dir}" />
+	<!-- <property name="src.test.dir" value="${src.dir}" />  -->
+	<property name="project.webroot" value="${basedir}/webroot" />
+	<!-- <property name="src.config.dir" value="${src.dir}" /> -->
+	<property name="pubjar.dir" value="${basedir}/pubjar" />
+	<!-- 临时编译目录 -->
+	<property name="build.dir" value="${basedir}/build" />
+	<property name="build.lib.dir" value="${basedir}/WebRoot/WEB-INF/lib"/>
+	<property name="build.classes.dir" value="${build.dir}/classes" />
+	<!-- <property name="build.test.dir" value="${build.dir}/test" />  -->
+	 <property name="build.log.dir" value="${build.dir}/log" />   
+	<!-- <property name="build.doc.junit.dir" value="${basedir}/doc/junit" /> -->
+	<property name="build.coverage.dir" value="${build.dir}/coverage" />
+	<property name="build.doc.coverage.dir" value="${basedir}/doc/coverage" />	
+	
+	<!-- 检查工具是否安装 -->
+	<available classname="fr.jayasoft.ivy.Ivy" property="ivy.present"/>
+	<fail unless="ivy.present" message="第三方包依赖工具没有安装,请把ivy-1.4.jar,ivy-core-1.4.jar拷贝到${env.ANT_HOME}/lib" />
+
+	<available classname="net.sf.antcontrib.AntContribVersion" property="antcontrib.present"/>
+	<fail unless="antcontrib.present" message="ANT扩展工具AntContrib没有安装,请把ant-contrib.jar拷贝到${env.ANT_HOME}/lib" />
+
+	<!-- 定义weblogic的任务 
+		<taskdef name="wlserver" classname="weblogic.ant.taskdefs.management.WLServer" classpath="${weblogic.jar}" />
+		<taskdef name="wlconfig" classname="weblogic.ant.taskdefs.management.WLConfig" classpath="${weblogic.jar}" />
+		<taskdef name="wldeploy" classname="weblogic.ant.taskdefs.management.WLDeploy" classpath="${weblogic.jar}" />	
+    -->
+	
+		<!-- emma代码覆盖工具 -->
+		<path id="emma.path">
+			<pathelement location="${build.lib.dir}/emma.jar" />
+			<pathelement location="${build.lib.dir}/emma_ant.jar" />
+		</path>
+		<taskdef resource="emma_ant.properties" classpathref="emma.path" />
+		
+		<!-- Java编译CLASSPATH -->
+		<path id="master-classpath">
+			<fileset dir="${build.lib.dir}" />
+			<fileset file="${weblogic.jar}" />
+		</path>
+
+		<!-- 清空代码 -->
+		<target name="clean" description="清空所有输出文件包括build和部署目录">
+			<delete dir="${build.dir}" />
+			<delete dir="${deploy.exploded.dir}" />
+			<delete dir="${rel.dir}"/>
+			<delete file="${deploy.ear.dir}/${project.name}.ear" />
+		</target>
+
+
+		<!-- 初始化，创建目录 -->
+		<target name="init" description="创建目录" >
+			<mkdir dir="${build.classes.dir}" />
+			<!--	<mkdir dir="${build.test.dir}" />  -->
+			<mkdir dir="${rel.dir}" />
+			<mkdir dir="${build.log.dir}//${project.name}" />
+			<!-- <mkdir dir="${publish.apps.dir}" /> -->
+			<mkdir dir="${publish.libs.dir}" />
+			<mkdir dir="${build.dir}/source" />
+		</target>
+
+	<target name="compile" description="编译Java文件" depends="init,get-lib">
+		<!--
+		<available classname="com.paic.pafa.app.lwc.core.context.support.PafaCoreContexton" classpathref="master-classpath" property="lib.present"/>
+		<fail unless="lib.present" message="第三方包还没有下载,请配置ivy.xml文件,并执行get-lib任务,您使用的JBOSS平台,请指定下载PAFA3.2版本,以前版本不支持JBoss" />
+		 -->
+		<!-- 编译应用代码 -->
+		<javac destdir="${build.classes.dir}" debug="on"  includeantruntime="on" deprecation="false" failonerror="true" encoding="GBK" source="1.5" target="1.5" >
+			<src path="${src.java.dir}" />
+			<classpath refid="master-classpath" />
+		</javac>
+		
+		<copy todir="${project.webroot}/WEB-INF/classes">
+						<fileset dir="${src.java.dir}">
+							<include name="**/*.xml" />
+							<include name="**/*.view" />
+							<include name="**/*.properties" />
+							<!-- exclude xml、properties -->
+							<!--
+							<exclude name="*.xml" />
+							<exclude name="*.properties" />
+							-->
+						</fileset>
+		 </copy>
+		
+		<!-- 注释编译测试代码
+		<javac destdir="${build.test.dir}" debug="on" deprecation="false" failonerror="true" encoding="UTF-8" target="1.6">
+			<src path="${src.test.dir}" />
+			<classpath refid="master-classpath" />
+			<classpath location="${build.classes.dir}" />
+		</javac>
+		 -->
+
+		<!-- 测试中可能会用到的peroperties文件拷贝到测试类文件 
+		<copy todir="${build.test.dir}" >
+			<fileset dir="${src.test.dir}" includes="*.properties"/>
+			<fileset dir="${src.test.dir}" includes="*.xml"/>
+			<fileset dir="${src.test.dir}" includes="*.dtd"/>
+			<fileset dir="${src.test.dir}" includes="config/**/**"/>
+			<fileset dir="${src.test.dir}" includes="data/**/**"/>
+		</copy>
+		-->
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- 清空第三方包本地缓存 -->
+	<!-- =================================================================== -->
+	<target name="clean-lib-cache" description="清空第三方包本地缓存">
+		<!--	<delete dir="${user.home}/.ivy/cache"/>    -->
+			<delete dir="${build.lib.dir}/">
+				<exclude name="**/emma.jar" />
+			</delete>
+	</target>
+
+		<!-- =================================================================== -->
+		<!-- 设置第三方包下载配置文件 -->
+		<!-- =================================================================== -->
+	<target name="configure-lib"  depends="clean-lib-cache" description="设置第三方包配置文件">
+			<ivy:configure url="${ivy.config.url}" />
+	</target>
+
+		<!-- =================================================================== -->
+		<!-- 下载或从本地缓存获取第三方包 -->
+		<!-- =================================================================== -->
+	<target name="get-lib" depends="init,configure-lib" description="下载或从本地缓存获取第三方包">
+			<ivy:retrieve pattern="${build.lib.dir}/[artifact].[ext]" />
+	</target>
+	
+	<target name="web-war" depends="compile" description="创建WEB发布包">
+
+		<!--cms start-->
+		<copy todir="${project.webroot}/WEB-INF/classes">
+			<fileset dir="${build.classes.dir}" excludes="${project.conf.exclude}">
+			</fileset>
+		</copy>
+		<copy todir="${project.webroot}/WEB-INF/classes/conf">
+					<fileset dir="${src.java.dir}/conf">
+					</fileset>
+	    </copy>
+			
+		<war destfile="${rel.dir}/${project.name}.war" webxml="${project.webroot}/WEB-INF/web.xml">
+			<fileset dir="${project.webroot}" excludes="${project.war.exclude}">
+			</fileset>
+			<manifest>
+				<attribute name="Built-By" value="${user.name}" />
+				<attribute name="Specification-Version" value="${version}" />
+			</manifest>
+		</war>
+		<copy todir="${publish.libs.dir}">
+				<fileset dir="${build.lib.dir}">
+				</fileset>
+		</copy>
+		<!--cms end-->
+	</target>
+
+	<target name="ear" depends="web-war" description="创建WEB发布包">
+		<ear destfile="${ear.project.dist}/${project.name}-${version}.ear" appxml="${ear.project.dist}/META-INF/application.xml">
+			<fileset dir="${fundbus.project.base}/${project.dist}">
+				<include name="*.war" />
+			</fileset>
+		</ear>
+	</target>
+
+	<target name="deploy" depends="ear">
+	</target>
+
+
+	
+</project>
