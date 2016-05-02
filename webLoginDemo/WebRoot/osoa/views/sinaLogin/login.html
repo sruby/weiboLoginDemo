@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>测试页面</title>
+</head>
+<body>
+<div id="headerContent"></div>
+<div id="bodyContent" style="display:none;">
+<div id="sinaLogin_login">
+................页体区域(这里模拟一个登陆用来演示)...................<br/><br/>
+用户名：<input type="text" id="userName"/><br/>
+密&nbsp;&nbsp;码：<input type="password" id="password"/><br/>
+<input type="button" id="submit" value="提交" style="height:25px;width:50px;cursor: pointer;"/>
+<p>其他登录方式 &nbsp; <a id="sinaLogin" href="javascript:void(0);">微博登录</a></p>
+</div>
+</div>
+<div id="footerContent"></div>
+<script type="text/javascript">sinaLogin
+//var _headerPage = {"pageCode": "sinaLogin/login", "jsonParam":{},"isLoad":false};
+//项目主体页面 pageCode:页面路径编码,jsonParam:参数，isLoad:是否每次都加载
+var _defaultPage = {"pageCode": "sinaLogin/login", "jsonParam":{},"isLoad":false};
+//也头和页脚默认回去include里面去加载，需要改变的时候才去配置如下两句话
+//项目页头页面 pageCode:页面路径编码,jsonParam:参数，isLoad:是否每次都加载,默认是inclue/header
+//var _headerPage = {"pageCode": "include/header", "jsonParam":{},"isLoad":false}; 
+//项目页脚页面 pageCode:页面路径编码,jsonParam:参数，isLoad:是否每次都加载,默认是inclue/footer
+//var _footerPage = {"pageCode": "include/footer", "jsonParam":{},"isLoad":false}; 
+</script>
+<script type="text/javascript" src="/osoa/version.js"></script>
+<!--基础框架包 -->
+<script type="text/javascript" src="/thinkiveJs.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+  
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd"  
+    version="2.0">  
+       
+    <description>StringHelper</description> 
+    <display-name>ThinkiveTag</display-name> 
+    <tlib-version>1.0</tlib-version>  
+    <short-name>tktl</short-name>  
+    <uri>http://www.thinkive.com/</uri>
+
+  
+    <function>  
+        <description>StringHelper</description>  
+        <name>truncate</name>  
+        <function-class>com.thinkive.base.util.StringHelper</function-class>  
+        <function-signature>java.lang.String truncate(java.lang.String, int, boolean)</function-signature>       
+    </function>
+    
+    <function>  
+        <description>StringHelper</description>  
+        <name>currencyShortFor</name>  
+        <function-class>com.thinkive.base.util.StringHelper</function-class>  
+        <function-signature>java.lang.String currencyShortFor(java.lang.String)</function-signature>       
+    </function>
+    
+     <function>  
+        <description>StringHelper</description>  
+        <name>formatDate</name>  
+        <function-class>com.thinkive.base.util.StringHelper</function-class>  
+        <function-signature>java.lang.String formatDate(java.lang.String)</function-signature>       
+    </function>
+    
+     <function>  
+        <description>StringHelper</description>  
+        <name>substring</name>  
+        <function-class>com.thinkive.base.util.StringHelper</function-class>  
+        <function-signature>java.lang.String substring(java.lang.String,int)</function-signature>       
+    </function>
+      
+</taglib> 

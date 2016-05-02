@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//WebRoot/osoa/views/include/footer.html=UTF-8
+encoding//WebRoot/osoa/views/include/header.html=UTF-8
+encoding//WebRoot/osoa/views/test/demo0.html=UTF-8
+encoding//WebRoot/osoa/views/test/demo1.html=UTF-8
+encoding//WebRoot/osoa/views/test/demo2.html=UTF-8
+encoding//src/root/LoginAction.java=GBK
+encoding//src/weibo4j/Users.java=UTF-8
+encoding//src/weibo4j/Weibo.java=UTF-8
+encoding//src/weibo4j/model/Comment.java=UTF-8
+encoding//src/weibo4j/model/Paging.java=UTF-8
+encoding/WebRoot=UTF-8
+encoding/src=UTF-8

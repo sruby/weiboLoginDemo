@@ -1,0 +1,26 @@
+<div id="test_demo0">
+<table>
+  <thead>
+    <tr>
+      <td align="center">姓名</td>
+      <td align="center">年龄</td>
+      <td align="center">性别</td>
+      <td align="center">家人</td>
+    </tr>
+  </thead>
+  <tbody>
+    {@each list as item,index}
+      {@if index % 2 == 0}
+        <tr style="font-weight: bold;color:blue;">
+      {@else}
+        <tr style="font-weight:normal;color: red;">
+      {@/if}
+         <td>${item.name}</td>
+         <td>${item.age}</td>
+         <td>${item.sex == '0' ? '男' : '女'}</td>
+         <td>${item.lover}</td>
+        </tr>
+    {@/each}
+  </tbody>
+</table>
+</div>

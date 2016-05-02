@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>登陆成功</title>
+</head>
+<body>
+<div id="headerContent"></div>
+<div id="bodyContent" style="display:none;">
+<div id="user_success">
+................页体区域(这里演示各种常用的方法)...................<br/><br/>
+<input type="button" id="demo0" value="得到一个模板页面的html内容,适用于Juicer的语法:$.getJuicerTemplateHtmlContent(pageCode,callBackFunc,data,flag,num)" style="height:25px;cursor: pointer;"/><br/>
+<input type="button" id="demo1" value="得到一个模板页面的html内容,不支持Juicer的语法:$.getModelHtmlContent(pageCode,callBackFunc,dataList,fileds,num)" style="height:25px;cursor: pointer;"/><br/>
+<input type="button" id="demo2" value="得到一个模块页面的html内容:$.getHtmlContent(pageCode,callBackFunc)" style="height:25px;cursor: pointer;"/><br/>
+<input type="button" id="demo3" value="加载一个模块页面的html内容:$(obj).loadHtmlContent(pageCode,param,callback,loadFlag,hrefFlag,isShowWait)" style="height:25px;cursor: pointer;"/><br/>
+<input type="button" id="demo4" value="加载一个模块页面的html内容和对应的js模块类:$(obj).loadPageContent(prevPageCode,pageCode,param,callback,loadFlag,hrefFlag,isShowWait)" style="height:25px;cursor: pointer;"/><br/>
+<input type="button" id="demo5" value="加载一个模板页面的html内容,不支持Juicer的语法:$(obj).loadModuleHtmlContent(pageCode,callBackFunc,dataList,fileds,num,isLoading)" style="height:25px;cursor: pointer;"/><br/>
+<input type="button" id="demo6" value="加载一个模板页面的html内容,适用于Juicer的语法:$(obj).loadJuicerTemplateHtmlContent(pageCode,callBackFunc,data,flag,num,isLoading)" style="height:25px;cursor: pointer;"/><br/>
+<input type="button" id="demo7" value="设置session:$.setSessionStorage (key,value)" style="height:25px;cursor: pointer;"/><br/>
+<input type="button" id="demo8" value="得到session:$.getStorage(key)" style="height:25px;cursor: pointer;"/><br/>
+<br/>
+<br/>
+<div id="displayContent">这个区域用来展示内容....</div>
+<br/>
+</div>
+</div>
+<div id="footerContent"></div>
+<script type="text/javascript">
+//项目主体页面 pageCode:页面路径编码,jsonParam:参数，isLoad:是否每次都加载
+var _defaultPage = {"pageCode": "user/success", "jsonParam":{},"isLoad":false}; 
+</script>
+<script type="text/javascript" src="/osoa/version.js"></script>
+<!--基础框架包 -->
+<script type="text/javascript" src="/thinkiveJs.min.js"></script>
+</body>
+</html>
